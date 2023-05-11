@@ -4,6 +4,7 @@ import Pokemon from "../models/pokemon";
 import './pokemon-card.css';
 import formatDate from "../helpers/format-date";
 import formatType from "../helpers/format-type";
+import { Link } from "react-router-dom";
 
 type Props = {
     pokemon: Pokemon,
@@ -20,7 +21,7 @@ const PokemonCard: FunctionComponent<Props> = ({ pokemon, borderColor = '#009688
     const hideBorder = () => {
         setColor('#f5f5f5');
     }
-    
+
     return (
         <div className="col s12 m6 l4" onMouseEnter={showBorder} onMouseLeave={hideBorder}>
             <div className="card hoverable" style={{ borderColor: color }}>
@@ -50,7 +51,14 @@ const PokemonCard: FunctionComponent<Props> = ({ pokemon, borderColor = '#009688
                         {pokemon.name}
                         <i className="material-icons right">close</i>
                     </span>
-                    <p>This is a Pokémon card</p>
+                    <div className="center-align">
+                        <Link to={`/pokemons/${pokemon.id}/edit`} className="btn">
+                            <i className="material-icons left">edit</i>Modifier
+                        </Link>
+                        <Link to={`/pokemons/${pokemon.id}/delete`} className="btn">
+                            <i className="material-icons left">delete</i>Supprimer
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>
