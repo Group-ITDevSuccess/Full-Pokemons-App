@@ -2,6 +2,7 @@ import React, { FunctionComponent, useState } from "react";
 import Pokemon from "../models/pokemon";
 import formatType from "../helpers/format-type";
 import { useHistory } from "react-router-dom";
+import PokemonService from "../services/pokemon-service";
 
 type Props = {
   pokemon: Pokemon;
@@ -49,7 +50,7 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fieldName: string = e.target.name;
     const fieldValue: string = e.target.value;
-    const newField: Field|any = { [fieldName]: { value: fieldValue } };
+    const newField: Field | any = { [fieldName]: { value: fieldValue } };
 
     setForm({ ...form, ...newField });
   };
@@ -62,7 +63,7 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
   ): void => {
     const checked = e.target.checked;
     let newField: Field;
-  
+
     if (checked) {
       const newTypes: string[] = form.types.value.concat([type]);
       newField = { value: newTypes };
@@ -72,7 +73,7 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
       );
       newField = { value: newTypes };
     }
-  
+
     setForm({ ...form, ...{ types: newField } });
   };
 
@@ -80,60 +81,92 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
     e.preventDefault();
     const isFormValid = validateForm();
     if (isFormValid) {
-        history.push(`/pokemons/${pokemon.id}`);
+      pokemon.name = form.name.value;
+      pokemon.hp = form.hp.value;
+      pokemon.cp = form.cp.value;
+      pokemon.types = form.types.value;
+      PokemonService.updatePokemon(pokemon).then(() =>
+        history.push(`/pokemons/${pokemon.id}`)
+      );
     }
-  }
-  
+  };
+
   const validateForm = () => {
     let newForm: Form = form;
 
     // Validator name
     if (!/^[a-zA-Zàéè]{3,25}$/.test(form.name.value)) {
-        const errorMsg: string = "Le nom du pokemon est requis (1 - 25).";
-        const newField: Field = {value: form.name.value, error: errorMsg, isValid: false};
-        newForm = {...newForm, ...{name: newField}};
-    }else{
-        const newField: Field = {value: form.name.value, error: '', isValid: true};
-        newForm = {...newForm, ...{name: newField}};
+      const errorMsg: string = "Le nom du pokemon est requis (1 - 25).";
+      const newField: Field = {
+        value: form.name.value,
+        error: errorMsg,
+        isValid: false,
+      };
+      newForm = { ...newForm, ...{ name: newField } };
+    } else {
+      const newField: Field = {
+        value: form.name.value,
+        error: "",
+        isValid: true,
+      };
+      newForm = { ...newForm, ...{ name: newField } };
     }
 
     // Validator hp
     if (!/^[0-9]{1,3}$/.test(form.hp.value)) {
-        const errorMsg: string = "Les points de vie pokemon sont compris entre 0 et 999";
-        const newField: Field = {value: form.hp.value, error: errorMsg, isValid: false};
-        newForm = {...newForm, ...{hp: newField}};
-    }else{
-        const newField: Field = {value: form.hp.value, error: '', isValid: true};
-        newForm = {...newForm, ...{hp: newField}};
+      const errorMsg: string =
+        "Les points de vie pokemon sont compris entre 0 et 999";
+      const newField: Field = {
+        value: form.hp.value,
+        error: errorMsg,
+        isValid: false,
+      };
+      newForm = { ...newForm, ...{ hp: newField } };
+    } else {
+      const newField: Field = {
+        value: form.hp.value,
+        error: "",
+        isValid: true,
+      };
+      newForm = { ...newForm, ...{ hp: newField } };
     }
 
     // Validator cp
     if (!/^[0-9]{1,2}$/.test(form.cp.value)) {
-        const errorMsg: string = "Les dégats du pokemon sont compris entre 0 et 99";
-        const newField: Field = {value: form.cp.value, error: errorMsg, isValid: false};
-        newForm = {...newForm, ...{cp: newField}};
-    }else{
-        const newField: Field = {value: form.hp.value, error: '', isValid: true};
-        newForm = {...newForm, ...{cp: newField}};
+      const errorMsg: string =
+        "Les dégats du pokemon sont compris entre 0 et 99";
+      const newField: Field = {
+        value: form.cp.value,
+        error: errorMsg,
+        isValid: false,
+      };
+      newForm = { ...newForm, ...{ cp: newField } };
+    } else {
+      const newField: Field = {
+        value: form.hp.value,
+        error: "",
+        isValid: true,
+      };
+      newForm = { ...newForm, ...{ cp: newField } };
     }
 
     setForm(newForm);
     return newForm.name.isValid && newForm.hp.isValid && newForm.cp.isValid;
-  }
+  };
 
   const isTypesValid = (type: string): boolean => {
     if (form.types.value.length === 1 && hasType(type)) {
-        return false;
+      return false;
     }
 
-    if(form.types.value.length >= 3 && !hasType(type)){
-        return false;
+    if (form.types.value.length >= 3 && !hasType(type)) {
+      return false;
     }
     return true;
-  }
+  };
 
   return (
-    <form onSubmit={(e) =>handleSubmit(e)}>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <div className="row">
         <div className="col s12 m8 offset-m2">
           <div className="card hoverable">
@@ -157,11 +190,11 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
                     className="form-control"
                     onChange={(e) => handleInputChange(e)}
                   ></input>
-                  {form.name.error &&
+                  {form.name.error && (
                     <div className="card-panel red accent-1">
-                        {form.name.error}
+                      {form.name.error}
                     </div>
-                   }
+                  )}
                 </div>
                 {/* Pokemon hp */}
                 <div className="form-group">
@@ -174,16 +207,16 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
                     className="form-control"
                     onChange={(e) => handleInputChange(e)}
                   ></input>
-                  {form.cp.error &&
+                  {form.cp.error && (
                     <div className="card-panel red accent-1">
-                        {form.cp.error}
+                      {form.cp.error}
                     </div>
-                   }
-                  {form.hp.error &&
+                  )}
+                  {form.hp.error && (
                     <div className="card-panel red accent-1">
-                        {form.hp.error}
+                      {form.hp.error}
                     </div>
-                   }
+                  )}
                 </div>
                 {/* Pokemon cp */}
                 <div className="form-group">
@@ -200,7 +233,7 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
                 {/* Pokemon types */}
                 <div className="form-group">
                   <label>Types</label>
-                  {types.map(type => (
+                  {types.map((type) => (
                     <div key={type} style={{ marginBottom: "10px" }}>
                       <label>
                         <input
