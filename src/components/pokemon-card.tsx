@@ -28,6 +28,10 @@ const PokemonCard: FunctionComponent<Props> = ({ pokemon, borderColor = '#009688
         history.push(`/pokemons/${id}`);
     }
 
+    const editPokemon = (id: number) => {
+        history.push(`/pokemons/edit/${id}`);
+    }
+
     return (
         <div className="col s12 m6 l4" onMouseEnter={showBorder} onMouseLeave={hideBorder}>
             <div className="card hoverable" style={{ borderColor: color }}>
@@ -68,7 +72,7 @@ const PokemonCard: FunctionComponent<Props> = ({ pokemon, borderColor = '#009688
                                         <span className="cyan btn-floating pulse" onClick={()=>goToPokemon(pokemon.id)}><i className="fas fa-eye"></i></span>
                                     </div>
                                     <div className="col s4">
-                                        <span className="green btn-floating pulse" onClick={()=>goToPokemon(pokemon.id)}><i className="fas fa-edit"></i></span>
+                                        <span className="green btn-floating pulse" onClick={()=>editPokemon(pokemon.id)}><i className="fas fa-edit"></i></span>
                                     </div>
                                     <div className="col s4">
                                         <span className="red btn-floating pulse" onClick={()=>goToPokemon(pokemon.id)}><i className="fas fa-trash"></i></span>
