@@ -2,7 +2,7 @@ import React, {FunctionComponent, useState} from 'react';
   
 const App: FunctionComponent = () => {
 //  const name: String = 'React';
-const [name, setName] = useState('KIKO') ;
+const [name, setName] = useState<string>('KIKO') ;
     
  return (
   <h1>Hello, {name} !</h1>
