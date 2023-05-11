@@ -74,6 +74,9 @@ const PokemonCard: FunctionComponent<Props> = ({ pokemon, borderColor = '#009688
                                     <div className="col s4">
                                         <span className="green btn-floating pulse" onClick={()=>editPokemon(pokemon.id)}><i className="fas fa-edit"></i></span>
                                     </div>
+                                    <div className="col s4">
+                                        <span className="red btn-floating pulse" onClick={()=>goToPokemon(pokemon.id)}><i className="fas fa-trash"></i></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

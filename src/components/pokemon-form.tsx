@@ -5,7 +5,8 @@ import { useHistory } from "react-router-dom";
 import PokemonService from "../services/pokemon-service";
 
 type Props = {
-  pokemon: Pokemon;
+  pokemon: Pokemon,
+  isEditForm: boolean
 };
 
 type Field = {
