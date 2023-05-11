@@ -5,8 +5,8 @@ import { useHistory } from "react-router-dom";
 import PokemonService from "../services/pokemon-service";
 
 type Props = {
-  pokemon: Pokemon,
-  isEditForm: boolean
+  pokemon: Pokemon;
+  isEditForm: boolean;
 };
 
 type Field = {
@@ -20,6 +20,7 @@ type Form = {
   hp: Field;
   cp: Field;
   types: Field;
+  picture: Field;
 };
 
 const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
@@ -28,6 +29,7 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
     hp: { value: pokemon.hp, isValid: true },
     cp: { value: pokemon.cp, isValid: true },
     types: { value: pokemon.types, isValid: true },
+    picture: { value: pokemon.picture },
   });
 
   const types: string[] = [
@@ -43,6 +45,10 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
     "Combat",
     "Psy",
   ];
+
+  const isAddForm = () =>{
+    return isEditForm;
+  }
 
   const hasType = (type: string): boolean => {
     return form.types.value.includes(type);
@@ -94,7 +100,18 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
 
   const validateForm = () => {
     let newForm: Form = form;
+    
+    // Validation de URL
+    if (isAddForm()) {
+      const start = "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/";
+      const end = ".png";
 
+      if (!form.picture.value.startsWith(start) || !form.picture.value.endsWith(end)) {
+        const errorMsg: string = "L'url n'est pas valide.";
+        const newField: Field = {value: form.picture.value, error: errorMsg, isValid: false};
+        newForm = {...form, ...{picture: newField}};
+      }
+    }
     // Validator name
     if (!/^[a-zA-Zàéè]{3,25}$/.test(form.name.value)) {
       const errorMsg: string = "Le nom du pokemon est requis (1 - 25).";
