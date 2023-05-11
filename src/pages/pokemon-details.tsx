@@ -8,7 +8,7 @@ import formatType from '../helpers/format-type';
 
 type Params = { id: string };
   
-const PokemonsDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) => {
+const PokemonDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) => {
     
   const [pokemon, setPokemon] = useState<Pokemon|null>(null);
   
@@ -74,4 +74,4 @@ const PokemonsDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match 
   );
 }
   
-export default PokemonsDetail;
+export default PokemonDetail;

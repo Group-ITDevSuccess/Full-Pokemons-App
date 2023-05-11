@@ -47,19 +47,25 @@ const PokemonCard: FunctionComponent<Props> = ({ pokemon, borderColor = '#009688
                     </div>
                 </div>
                 <div className="card-reveal">
-                    <span className="card-title grey-text text-darken-4">
+                    <span className="card-title grey-text text-darken-4 center-align">
                         {pokemon.name}
-                        <i className="material-icons right">close</i>
+                        <i className="fas fa-times right"></i>
                     </span>
                     <div className="center-align">
-                        <Link to={`/pokemons/${pokemon.id}/edit`} className="btn">
-                            <i className="material-icons left">edit</i>Modifier
-                        </Link>
-                        <Link to={`/pokemons/${pokemon.id}/delete`} className="btn">
-                            <i className="material-icons left">delete</i>Supprimer
-                        </Link>
+                        <a href={`/pokemons/${pokemon.id}`} className="btn">
+                            <i className="fas fa-info left"></i> Détail
+                        </a>
+                        <a href={`/pokemons/${pokemon.id}/edit`} className="btn">
+                            <i className="fas fa-edit left"></i> Modifier
+                        </a>
+                        <a href={`/pokemons/${pokemon.id}/delete`} className="btn red">
+                            <i className="fas fa-trash-alt left"></i> Supprimer
+                        </a>
                     </div>
                 </div>
+
+
+
             </div>
         </div>
     );
