@@ -8,7 +8,6 @@ type Props = {
     borderColor?: string
 };
 
-
 const PokemonCard: FunctionComponent<Props> = ({ pokemon, borderColor = '#009688' }) => {
     const [color, setColor] = useState<string>();
 
@@ -20,8 +19,11 @@ const PokemonCard: FunctionComponent<Props> = ({ pokemon, borderColor = '#009688
         setColor('#f5f5f5');
     }
 
-    return (
+    const formatDate = (date: Date): string => {
+        return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+    }
 
+    return (
         <div className="col s12 m6 l4" onMouseEnter={showBorder} onMouseLeave={hideBorder}>
             <div className="card hoverable" style={{ borderColor: color }} >
                 <div className="card-image waves-effect waves-block waves-light">
@@ -33,9 +35,10 @@ const PokemonCard: FunctionComponent<Props> = ({ pokemon, borderColor = '#009688
                         <i className="material-icons right">{pokemon.types}</i>
                     </span>
                     <p>
-                        <small>Created: {pokemon.created.toString()}</small>
+                        <small>Created: {formatDate(pokemon.created)}</small>
                     </p>
                 </div>
+                
                 <div className="card-reveal">
                     <span className="card-title grey-text text-darken-4">
                         {pokemon.name}
@@ -45,7 +48,6 @@ const PokemonCard: FunctionComponent<Props> = ({ pokemon, borderColor = '#009688
                 </div>
             </div>
         </div>
-
     );
 }
 
