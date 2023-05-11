@@ -1,10 +1,14 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent, useEffect, useState} from 'react';
 import Pokemon from './models/pokemon';
 import POKEMONS from './mocks/mock-pokemon';
 
 const App: FunctionComponent = () => {
 //  const name: String = 'React';
-const [pokemons] = useState<Pokemon[]>(POKEMONS) ;
+const [pokemons,setPokemons] = useState<Pokemon[]>([]) ;
+
+useEffect(()=>{
+
+});
     
  return (
   <h1>Hello, {pokemons.length} !</h1>
