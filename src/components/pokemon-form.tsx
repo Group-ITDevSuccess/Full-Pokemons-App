@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useState } from "react";
 import Pokemon from "../models/pokemon";
 import formatType from "../helpers/format-type";
+import { useHistory } from "react-router-dom";
 
 type Props = {
   pokemon: Pokemon;
@@ -53,6 +54,8 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
     setForm({ ...form, ...newField });
   };
 
+  const history = useHistory();
+
   const selectType = (
     type: string,
     e: React.ChangeEvent<HTMLInputElement>
@@ -72,10 +75,16 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
   
     setForm({ ...form, ...{ types: newField } });
   };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(form);
+    history.push(`/pokemons/${pokemon.id}`);
+  }
   
 
   return (
-    <form>
+    <form onSubmit={(e) =>handleSubmit(e)}>
       <div className="row">
         <div className="col s12 m8 offset-m2">
           <div className="card hoverable">
