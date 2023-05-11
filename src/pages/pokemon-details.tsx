@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import Pokemon from '../models/pokemon';
-// import POKEMONS from '../mocks/mock-pokemon';
 import formatDate from '../helpers/format-date';
 import formatType from '../helpers/format-type';
+import PokemonService from '../services/pokemon-service';
 
 
 type Params = { id: string };
@@ -13,16 +13,7 @@ const PokemonDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }
   const [pokemon, setPokemon] = useState<Pokemon|null>(null);
   
   useEffect(() => {
-    // POKEMONS.forEach(pokemon => {
-    //   if (match.params.id === pokemon.id.toString()) {
-    //     setPokemon(pokemon);
-    //   }
-    // })
-    fetch(`http://localhost:3001/pokemons/${match.params.id}`)
-    .then(response => response.json())
-    .then((pokemon) => {
-        if(pokemon.id) setPokemon(pokemon);
-    });
+    PokemonService.getPokemon(+match.params.id).then((pokemon) => setPokemon(pokemon));
   }, [match.params.id]);
     
   return (
