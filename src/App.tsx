@@ -11,7 +11,10 @@ useEffect(()=>{
 }, []);
     
  return (
-  <h1>Hello, {pokemons.length} !</h1>
+    <div className="">
+        <h1>Pokédex</h1>
+        <h1>Hello, {pokemons.length} !</h1>
+    </div>
  )
 }
   
