@@ -33,6 +33,10 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
         'Poison', 'Fée', 'Vol', 'Combat', 'Psy'
     ];
 
+    const hasType = (type : string): boolean => {
+        return form.types.value.includes(type);
+    }
+
     return (
         <form>
             <div className="row">
@@ -64,7 +68,7 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
                                     {types.map(type => (
                                         <div key={type} style={{ marginBottom: '10px' }}>
                                             <label>
-                                                <input id={type} value="" type="checkbox" className="filled-in"></input>
+                                                <input id={type}  value={type} checked = {hasType(type)} type="checkbox" className="filled-in"></input>
                                                 <span>
                                                     <p className={formatType(type)}>{type}</p>
                                                 </span>
