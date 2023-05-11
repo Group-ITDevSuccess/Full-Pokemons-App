@@ -7,8 +7,8 @@ const App: FunctionComponent = () => {
 const [pokemons,setPokemons] = useState<Pokemon[]>([]) ;
 
 useEffect(()=>{
-
-});
+    setPokemons(POKEMONS)
+}, []);
     
  return (
   <h1>Hello, {pokemons.length} !</h1>
