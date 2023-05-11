@@ -17,7 +17,6 @@ const App: FunctionComponent = () => {
             <ul className="right hide-on-med-and-down">
               <li><Link to="/" className="">Accueil</Link></li>
               <li><Link to="/" className="">Listes</Link></li>
-              <li><Link to="/" className="waves-effect waves-light btn">Ajouter</Link></li>
             </ul>
           </div>
         </nav>
