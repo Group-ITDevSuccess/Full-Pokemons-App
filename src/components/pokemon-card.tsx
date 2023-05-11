@@ -54,7 +54,6 @@ const PokemonCard: FunctionComponent<Props> = ({ pokemon, borderColor = '#009688
                 </div>
             </div>
         </div>
-
     );
 }
 
