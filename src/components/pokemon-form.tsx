@@ -23,7 +23,7 @@ type Form = {
   picture: Field;
 };
 
-const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
+const PokemonForm: FunctionComponent<Props> = ({ pokemon, isEditForm }) => {
   const [form, setForm] = useState<Form>({
     name: { value: pokemon.name, isValid: true },
     hp: { value: pokemon.hp, isValid: true },
@@ -47,7 +47,7 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
   ];
 
   const isAddForm = () =>{
-    return isEditForm;
+    return !isEditForm;
   }
 
   const hasType = (type: string): boolean => {
@@ -109,6 +109,9 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon }) => {
       if (!form.picture.value.startsWith(start) || !form.picture.value.endsWith(end)) {
         const errorMsg: string = "L'url n'est pas valide.";
         const newField: Field = {value: form.picture.value, error: errorMsg, isValid: false};
+        newForm = {...form, ...{picture: newField}};
+      }else{
+        const newField: Field = {value: form.picture.value, error: '', isValid: true};
         newForm = {...form, ...{picture: newField}};
       }
     }
