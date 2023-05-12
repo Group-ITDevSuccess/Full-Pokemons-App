@@ -1,4 +1,4 @@
-import React, { FormEvent, FunctionComponent, useState } from "react";
+import React, { ChangeEvent, FormEvent, FunctionComponent, useState } from "react";
 import Pokemon from "../models/pokemon";
 import formatType from "../helpers/format-type";
 import { useHistory } from "react-router-dom";
@@ -54,7 +54,7 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon, isEditForm }) => {
     return form.types.value.includes(type);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const fieldName: string = e.target.name;
     const fieldValue: string = e.target.value;
     const newField: Field | any = { [fieldName]: { value: fieldValue } };
@@ -66,7 +66,7 @@ const PokemonForm: FunctionComponent<Props> = ({ pokemon, isEditForm }) => {
 
   const selectType = (
     type: string,
-    e: React.ChangeEvent<HTMLInputElement>
+    e: ChangeEvent<HTMLInputElement>
   ): void => {
     const checked = e.target.checked;
     let newField: Field;
