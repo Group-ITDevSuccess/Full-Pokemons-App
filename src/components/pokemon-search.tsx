@@ -1,8 +1,8 @@
 import { ChangeEvent, FunctionComponent, useState } from "react";
 import { Link } from "react-router-dom";
-import PokemonService from "../services/pokemon-service";
 import React from "react";
 import Pokemon from "../models/pokemon";
+import PokemonService from "../services/pokemon-service";
 
 const PokemonSearch: FunctionComponent = () => {
   
