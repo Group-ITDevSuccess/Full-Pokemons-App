@@ -1,5 +1,4 @@
 # Node build artifacts
-build/
 node_modules/
 
 # Generated files
