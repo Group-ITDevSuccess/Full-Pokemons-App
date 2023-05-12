@@ -134,6 +134,17 @@
         "Normal",
         "Psy"
       ]
+    },
+    {
+      "id": 1683906977558,
+      "hp": 100,
+      "cp": 10,
+      "name": "Surprise",
+      "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/100.png",
+      "types": [
+        "Feu",
+        "Fée"
+      ]
     }
   ]
 }
